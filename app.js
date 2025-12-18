@@ -6,11 +6,13 @@ const app = express();
 const categorieRouter =require("./routes/categorie.route")
 const scategorieRouter =require("./routes/scategorie.route")
 const articleRouter =require("./routes/article.route")
+const userRouter =require("./routes/user.route")
 app.use(express.json());
 
 app.use('/api/categories', categorieRouter);
 app.use('/api/scategories', scategorieRouter);
 app.use('/api/articles', articleRouter);
+app.use('/api/users', userRouter);
 //config dotenv
 dotenv.config()
 //Les cors
