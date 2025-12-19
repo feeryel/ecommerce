@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 // Créer une instance de categorie.
 const Categorie = require('../models/categorie');
+const {verifyToken} =require("../middleware/verify-token")
+const {authorizeRoles} = require("../middleware/authorizeRoles")
 // afficher la liste des categories.
 
 // créer un nouvelle catégorie
@@ -18,7 +20,7 @@ res.status(404).json({ message: error.message });
 }
 });
 // chercher une catégorie
-router.get('/',async(req, res)=>{
+router.get('/', verifyToken, async (req, res )=> {
     try {
 const cat = await Categorie.find({}, null, {sort: {'_id': -1}})
 res.status(200).json(cat);

@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Article=require("../models/article")
 const Scategorie =require("../models/scategorie")
+const {verifyToken} =require("../middleware/verify-token")
+const {authorizeRoles} = require("../middleware/authorizeRoles")
 // afficher la liste des articles.
-router.get('/', async (req, res, )=> {
-try {
-const articles = await Article.find({}, null, {sort: {'_id': -
-1}}).populate("scategorieID").exec();
+router.get('/',verifyToken,authorizeRoles("admin"),async (req, res
+)=> {try {
+const articles = await Article.find();
 res.status(200).json(articles);
 } catch (error) {
 res.status(404).json({ message: error.message });
